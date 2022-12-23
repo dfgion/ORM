@@ -9,9 +9,6 @@ class Publisher(Base):
     id = sq.Column(sq.Integer, primary_key=True)
     name = sq.Column(sq.String(length=60), unique=True)
 
-    book = relationship('Book', back_populates='publisher')
-
-
     def __str__(self):
          return f'{self.name}'
 
@@ -22,7 +19,7 @@ class Book(Base):
     title = sq.Column(sq.String(40), nullable=False)
     id_publisher = sq.Column(sq.Integer, sq.ForeignKey('publishers.id'), nullable=False)
 
-    publisher = relationship(Publisher, back_populates='book')
+    publisher = relationship(Publisher, backref='publishers')
 
     def __str__(self):
          return f'{self.title}: {self.id_publisher}'
